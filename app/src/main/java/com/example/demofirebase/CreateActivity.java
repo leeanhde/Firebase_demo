@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity {
 
     private EditText editTextId, editTextName, editTextEmail, editTextCompany, editTextAddress;
     private Button saveButton, loadImageButton;
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create);
 
         editTextId = findViewById(R.id.editTextId);
         editTextName = findViewById(R.id.editTextName);
@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Create a user object
-        User user = new User(id, name, email, company, address, photoUri);
+        Contact user = new Contact(id, name, email, company, address, photoUri);
 
         // Push user object to Firebase
         databaseReference.child(id).setValue(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(MainActivity.this, "User data saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateActivity.this, "User data saved successfully", Toast.LENGTH_SHORT).show();
                         // Clear EditText fields after successful save
                         editTextId.setText("");
                         editTextName.setText("");
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         imageView2.setImageResource(0); // Clear image view
                         photoUri = null; // Clear photo URI
                     } else {
-                        Toast.makeText(MainActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

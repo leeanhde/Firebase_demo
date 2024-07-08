@@ -1,4 +1,4 @@
-package com.example.firebasedemo;
+package com.example.demofirebase;
 
 import org.junit.Test;
 

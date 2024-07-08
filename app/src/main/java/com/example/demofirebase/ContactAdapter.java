@@ -4,21 +4,18 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
     private final List<Contact> contacts;
 
-    private OnContactClickListener onContactClickListener;
+    private final OnContactClickListener onContactClickListener;
 
     // Interface for click events
     public interface OnContactClickListener {
@@ -56,9 +53,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                 .circleCrop()
                 .into(holder.ivAvatar);
 
-        holder.itemView.setOnClickListener(v -> {
-            onContactClickListener.onContactClick(contact);
-        });
+        holder.itemView.setOnClickListener(v -> onContactClickListener.onContactClick(contact));
     }
 
     @Override

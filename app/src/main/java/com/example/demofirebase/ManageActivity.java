@@ -6,6 +6,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.constraintlayout.widget.Group;
@@ -73,6 +74,12 @@ public class ManageActivity extends AppCompatActivity implements ContactAdapter.
                 layoutManager = new GridLayoutManager(ManageActivity.this, 2);
             }
             rcvContent.setLayoutManager(layoutManager);
+        });
+
+        AppCompatCheckBox cbSort = findViewById(R.id.cbSortAlpha);
+
+        cbSort.setOnCheckedChangeListener((view, isChecked) -> {
+            viewModel.setListData(isChecked);
         });
 
     }

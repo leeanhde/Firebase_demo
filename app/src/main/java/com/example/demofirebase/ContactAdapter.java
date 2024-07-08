@@ -1,6 +1,7 @@
 package com.example.demofirebase;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +47,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         Contact contact = contacts.get(position);
         holder.tvName.setText(contact.getName());
         holder.tvEmail.setText(contact.getEmail());
-        Glide.with(holder.ivAvatar)
-                .load(contact.photoUri)
+        Log.d("ContactAdapter", "Loading image from URI: " + contact.getPhotoUri()); // Thêm log để kiểm tra URI
+        Glide.with(holder.ivAvatar.getContext())
+                .load(contact.getPhotoUri())
                 .placeholder(R.drawable.baseline_coronavirus_24)
                 .error(R.drawable.baseline_coronavirus_24)
                 .circleCrop()

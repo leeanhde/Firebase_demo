@@ -61,8 +61,8 @@ public class UpdateActivity extends AppCompatActivity {
         });
 
         updateButton.setOnClickListener(v -> updateUserData());
-        Button deleteButton = findViewById(R.id.deleteButton);
-        deleteButton.setOnClickListener(v -> deleteUserData());
+        ImageView ivBackUpdate = findViewById(R.id.ivBack);
+        ivBackUpdate.setOnClickListener(v -> finish());
     }
 
     private void fillContact(Contact contact) {
@@ -150,6 +150,10 @@ public class UpdateActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(UpdateActivity.this, "User data updated successfully", Toast.LENGTH_SHORT).show();
+                        // Redirect to ManageActivity
+                        Intent intent = new Intent(UpdateActivity.this, ManageActivity.class);
+                        startActivity(intent);
+                        finish(); // Close the current activity
                     } else {
                         Toast.makeText(UpdateActivity.this, "Failed to update user data", Toast.LENGTH_SHORT).show();
                     }

@@ -1,61 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- Back button -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        android:text="Back"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ID -->
+    <TextView
+        android:id="@+id/tvTitleId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/tvBack" />
+
     <EditText
         android:id="@+id/editTextId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID"
-        android:textSize="20sp" />
+        android:layout_below="@id/tvTitleId"
+        android:hint="Enter ID" />
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/tvTitleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_below="@id/editTextId"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextId"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvTitleName"
         android:hint="Name"
         android:textSize="20sp" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tvTitleEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextName"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvTitleEmail"
         android:hint="Email"
         android:textSize="20sp" />
+
+    <!-- Company -->
+    <TextView
+        android:id="@+id/tvTitleCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Company"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editTextCompany"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvTitleCompany"
         android:hint="Company"
         android:textSize="20sp" />
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/tvTitleAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:layout_below="@id/editTextCompany"
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:id="@+id/editTextAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCompany"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvTitleAddress"
         android:hint="Address"
         android:textSize="20sp" />
 
+    <!-- Image -->
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/editTextAddress"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
+    <!-- Load Image Button -->
     <Button
         android:id="@+id/loadImageButton"
         android:layout_width="wrap_content"
@@ -72,14 +138,6 @@
         android:layout_below="@id/loadImageButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Update Data" />
+        android:text="SAVE" />
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/updateButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Delete" />
 </RelativeLayout>

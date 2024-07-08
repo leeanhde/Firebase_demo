@@ -24,10 +24,6 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button updateButton = findViewById(R.id.updateButton);
-        updateButton.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, UpdateActivity.class);
-            startActivity(intent);
-        });
+
     }
 }

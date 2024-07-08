@@ -1,3 +1,5 @@
+import com.android.tools.r8.internal.im
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -46,4 +48,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //viewmodel
+    implementation(libs.viewmodel)
+    implementation(libs.livedata)
+    implementation(libs.runtime)
 }

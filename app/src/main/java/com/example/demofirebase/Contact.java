@@ -1,6 +1,11 @@
 package com.example.demofirebase;
 
-public class Contact {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Contact implements Parcelable {
     public String id;
     public String name;
     public String email;
@@ -74,5 +79,41 @@ public class Contact {
 
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
+    }
+
+    protected Contact(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        email = in.readString();
+        company = in.readString();
+        address = in.readString();
+        photoUri = in.readString();
+    }
+
+    public static final Creator<Contact> CREATOR = new Creator<Contact>() {
+        @Override
+        public Contact createFromParcel(Parcel in) {
+            return new Contact(in);
+        }
+
+        @Override
+        public Contact[] newArray(int size) {
+            return new Contact[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(email);
+        parcel.writeString(company);
+        parcel.writeString(address);
+        parcel.writeString(photoUri);
     }
 }

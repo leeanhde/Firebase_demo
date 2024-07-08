@@ -19,13 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UpdateActivity extends AppCompatActivity {
 
+    static final String SELECTED_CONTACT = "SELECTED_CONTACT";
+
     private EditText editTextId, editTextName, editTextEmail, editTextCompany, editTextAddress;
     private Button updateButton, loadImageButton;
     private ImageView imageView;
     private DatabaseReference databaseReference;
     private static final int PICK_IMAGE_REQUEST = 2;
     private String photoUri;
-
 
 
     @Override
@@ -44,7 +45,14 @@ public class UpdateActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
-        fetchUserData("test");
+
+        //todo => update data from bundle selected contact
+        Contact selectedContact = getIntent().getParcelableExtra(Const.SELECTED_CONTACT);
+        if (selectedContact != null) {
+            fillContact(selectedContact);
+        } else {
+            fetchUserData("test");
+        }
 
         loadImageButton.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -57,6 +65,16 @@ public class UpdateActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(v -> deleteUserData());
     }
 
+    private void fillContact(Contact contact) {
+        editTextId.setText(contact.getId());
+        editTextName.setText(contact.getName());
+        editTextEmail.setText(contact.getEmail());
+        editTextCompany.setText(contact.getCompany());
+        editTextAddress.setText(contact.getAddress());
+        if (contact.getPhotoUri() != null && !contact.getPhotoUri().isEmpty()) {
+            Glide.with(UpdateActivity.this).load(Uri.parse(contact.getPhotoUri())).into(imageView);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -75,7 +75,6 @@ public class ManageActivity extends AppCompatActivity implements ContactAdapter.
             rcvContent.setLayoutManager(layoutManager);
         });
 
-
     }
 
     @Override

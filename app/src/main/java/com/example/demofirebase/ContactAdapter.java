@@ -1,19 +1,14 @@
 package com.example.demofirebase;
 
 import android.annotation.SuppressLint;
-import android.net.Uri;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
@@ -52,20 +47,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.tvName.setText(contact.getName());
         holder.tvEmail.setText(contact.getEmail());
 
-        if (!TextUtils.isEmpty(contact.getPhotoUri())) {
-            Uri uri = Uri.parse(contact.getPhotoUri());
-            Glide.with(holder.ivAvatar.getContext())
-                    .load(uri)
-                    .placeholder(R.drawable.baseline_coronavirus_24)
-                    .error(R.drawable.baseline_coronavirus_24)
-                    .circleCrop()
-                    .into(holder.ivAvatar);
-        } else {
-            Glide.with(holder.ivAvatar.getContext())
-                    .load(R.drawable.baseline_coronavirus_24)
-                    .circleCrop()
-                    .into(holder.ivAvatar);
-        }
+        Glide.with(holder.ivAvatar)
+                .load(contact.photoUri)
+                .placeholder(R.drawable.baseline_coronavirus_24)
+                .error(R.drawable.baseline_coronavirus_24)
+                .circleCrop()
+                .into(holder.ivAvatar);
 
         holder.itemView.setOnClickListener(v -> onContactClickListener.onContactClick(contact));
     }

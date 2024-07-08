@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +61,8 @@ public class UpdateActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
         });
 
-        updateButton.setOnClickListener(v -> updateUserData());
+        updateButton.setOnClickListener(v -> showUpdateConfirmationDialog());
+
         ImageView ivBackUpdate = findViewById(R.id.ivBack);
         ivBackUpdate.setOnClickListener(v -> finish());
     }
@@ -175,6 +177,18 @@ public class UpdateActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "User ID is empty", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+    private void showUpdateConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Update")
+                .setMessage("Are you sure you want to update this contact?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> updateUserData())
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_launcher_foreground)
+                .show();
     }
 
 

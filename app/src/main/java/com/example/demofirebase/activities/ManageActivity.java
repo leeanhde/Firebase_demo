@@ -1,19 +1,23 @@
-package com.example.demofirebase;
+package com.example.demofirebase.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.constraintlayout.widget.Group;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.demofirebase.adapters.ContactAdapter;
+import com.example.demofirebase.ManageViewModel;
+import com.example.demofirebase.R;
+import com.example.demofirebase.modals.ContactModal;
+import com.example.demofirebase.utils.Const;
 
 import java.util.ArrayList;
 
@@ -85,7 +89,7 @@ public class ManageActivity extends AppCompatActivity implements ContactAdapter.
     }
 
     @Override
-    public void onContactClick(Contact contact) {
+    public void onContactClick(ContactModal contact) {
         Intent intent = new Intent(this, UpdateActivity.class);
         intent.putExtra(Const.SELECTED_CONTACT, contact);
         startActivity(intent);

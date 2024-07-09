@@ -1,4 +1,4 @@
-package com.example.demofirebase;
+package com.example.demofirebase.adapters;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -13,27 +13,29 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.demofirebase.R;
+import com.example.demofirebase.modals.ContactModal;
 
 import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
-    private final List<Contact> contacts;
+    private final List<ContactModal> contacts;
 
     private final OnContactClickListener onContactClickListener;
 
     // Interface for click events
     public interface OnContactClickListener {
-        void onContactClick(Contact contact);
+        void onContactClick(ContactModal contact);
     }
 
-    public ContactAdapter(List<Contact> contactList, OnContactClickListener onContactClickListener) {
+    public ContactAdapter(List<ContactModal> contactList, OnContactClickListener onContactClickListener) {
         this.contacts = contactList;
         this.onContactClickListener = onContactClickListener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addContact(List<Contact> contactList) {
+    public void addContact(List<ContactModal> contactList) {
         contacts.clear();
         contacts.addAll(contactList);
         notifyDataSetChanged();
@@ -48,7 +50,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
-        Contact contact = contacts.get(position);
+        ContactModal contact = contacts.get(position);
         holder.tvName.setText(contact.getName());
         holder.tvEmail.setText(contact.getEmail());
 

@@ -56,6 +56,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBack">
 
         <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:button="@drawable/delete_24px"
+            android:checked="true"
+            android:gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

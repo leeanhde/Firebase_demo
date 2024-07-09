@@ -1,11 +1,11 @@
-package com.example.demofirebase;
+package com.example.demofirebase.modals;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Contact implements Parcelable {
+public class ContactModal implements Parcelable {
     public String id;
     public String name;
     public String email;
@@ -13,10 +13,10 @@ public class Contact implements Parcelable {
     public String address;
     public String photoUri;
 
-    public Contact() {
+    public ContactModal() {
     }
 
-    public Contact(String id, String name, String email, String company, String address, String photoUri) {
+    public ContactModal(String id, String name, String email, String company, String address, String photoUri) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -25,7 +25,7 @@ public class Contact implements Parcelable {
         this.photoUri = photoUri;
     }
 
-    public Contact(String id, String name, String email, String company, String address) {
+    public ContactModal(String id, String name, String email, String company, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -81,7 +81,7 @@ public class Contact implements Parcelable {
         this.photoUri = photoUri;
     }
 
-    protected Contact(Parcel in) {
+    protected ContactModal(Parcel in) {
         id = in.readString();
         name = in.readString();
         email = in.readString();
@@ -90,15 +90,15 @@ public class Contact implements Parcelable {
         photoUri = in.readString();
     }
 
-    public static final Creator<Contact> CREATOR = new Creator<Contact>() {
+    public static final Creator<ContactModal> CREATOR = new Creator<ContactModal>() {
         @Override
-        public Contact createFromParcel(Parcel in) {
-            return new Contact(in);
+        public ContactModal createFromParcel(Parcel in) {
+            return new ContactModal(in);
         }
 
         @Override
-        public Contact[] newArray(int size) {
-            return new Contact[size];
+        public ContactModal[] newArray(int size) {
+            return new ContactModal[size];
         }
     };
 

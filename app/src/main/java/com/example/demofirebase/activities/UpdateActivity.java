@@ -1,9 +1,8 @@
-package com.example.demofirebase;
+package com.example.demofirebase.activities;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +13,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.demofirebase.R;
+import com.example.demofirebase.modals.ContactModal;
+import com.example.demofirebase.utils.Const;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +25,7 @@ public class UpdateActivity extends AppCompatActivity {
     static final String SELECTED_CONTACT = "SELECTED_CONTACT";
 
     private EditText editTextId, editTextName, editTextEmail, editTextCompany, editTextAddress;
-    private Button updateButton, loadImageButton;
+    private Button updateButton, deleteButton, loadImageButton;
     private ImageView imageView;
     private DatabaseReference databaseReference;
     private static final int PICK_IMAGE_REQUEST = 2;
@@ -41,14 +43,16 @@ public class UpdateActivity extends AppCompatActivity {
         editTextCompany = findViewById(R.id.editTextCompany);
         editTextAddress = findViewById(R.id.editTextAddress);
         imageView = findViewById(R.id.imageView2);
+
         loadImageButton = findViewById(R.id.loadImageButton);
         updateButton = findViewById(R.id.updateButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
 
         //todo => update data from bundle selected contact
-        Contact selectedContact = getIntent().getParcelableExtra(Const.SELECTED_CONTACT);
+        ContactModal selectedContact = getIntent().getParcelableExtra(Const.SELECTED_CONTACT);
         if (selectedContact != null) {
             fillContact(selectedContact);
         } else {
@@ -63,11 +67,14 @@ public class UpdateActivity extends AppCompatActivity {
 
         updateButton.setOnClickListener(v -> showUpdateConfirmationDialog());
 
+        //onCLick delete button
+        deleteButton.setOnClickListener(v -> deleteUserData());
+
         ImageView ivBackUpdate = findViewById(R.id.ivBack);
         ivBackUpdate.setOnClickListener(v -> finish());
     }
 
-    private void fillContact(Contact contact) {
+    private void fillContact(ContactModal contact) {
         editTextId.setText(contact.getId());
         editTextName.setText(contact.getName());
         editTextEmail.setText(contact.getEmail());
@@ -94,7 +101,7 @@ public class UpdateActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DataSnapshot dataSnapshot = task.getResult();
                 if (dataSnapshot.exists()) {
-                    Contact user = dataSnapshot.getValue(Contact.class);
+                    ContactModal user = dataSnapshot.getValue(ContactModal.class);
                     if (user != null) {
                         editTextId.setText(user.getId());
                         editTextName.setText(user.getName());
@@ -131,7 +138,7 @@ public class UpdateActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DataSnapshot dataSnapshot = task.getResult();
                     if (dataSnapshot.exists()) {
-                        Contact existingUser = dataSnapshot.getValue(Contact.class);
+                        ContactModal existingUser = dataSnapshot.getValue(ContactModal.class);
                         if (existingUser != null && existingUser.getPhotoUri() != null && !existingUser.getPhotoUri().isEmpty()) {
                             photoUri = existingUser.getPhotoUri();
                             updateContact(id, name, email, company, address, photoUri);
@@ -147,7 +154,7 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     private void updateContact(String id, String name, String email, String company, String address, String photoUri) {
-        Contact user = new Contact(id, name, email, company, address, photoUri);
+        ContactModal user = new ContactModal(id, name, email, company, address, photoUri);
         databaseReference.child(id).setValue(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -170,6 +177,7 @@ public class UpdateActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(UpdateActivity.this, "User data deleted successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(UpdateActivity.this, ManageActivity.class));
                         } else {
                             Toast.makeText(UpdateActivity.this, "Failed to delete user data", Toast.LENGTH_SHORT).show();
                         }

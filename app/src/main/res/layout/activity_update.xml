@@ -7,6 +7,7 @@
     android:padding="16dp">
 
     <!-- Back button -->
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
@@ -15,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_24" />
 
+    <!-- ID -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvBack"
         android:layout_width="wrap_content"
@@ -28,7 +30,6 @@
         app:layout_constraintStart_toEndOf="@+id/ivBack"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- ID -->
     <TextView
         android:id="@+id/tvTitleId"
         android:layout_width="wrap_content"
@@ -131,13 +132,34 @@
         android:layout_marginTop="16dp"
         android:text="Choose Image" />
 
-    <Button
-        android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/RL_updatedelete"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loadImageButton"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/loadImageButton"
         android:layout_marginTop="16dp"
-        android:text="SAVE" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loadImageButton">
+
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:text="Delete" />
+    </LinearLayout>
+
 
 </RelativeLayout>

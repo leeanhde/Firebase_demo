@@ -1,10 +1,12 @@
 package com.example.demofirebase;
 
 import android.util.Log;
-import androidx.annotation.NonNull;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.demofirebase.modals.ContactModal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,10 +16,10 @@ import java.util.List;
 
 public class ManageViewModel extends ViewModel {
 
-    private final MutableLiveData<List<Contact>> _listData = new MutableLiveData<>();
-    public LiveData<List<Contact>> listData = _listData;
+    private final MutableLiveData<List<ContactModal>> _listData = new MutableLiveData<>();
+    public LiveData<List<ContactModal>> listData = _listData;
 
-    private List<Contact> currentContacts = new ArrayList<>();
+    private List<ContactModal> currentContacts = new ArrayList<>();
 
     public void getData() {
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference().child("users");
@@ -25,9 +27,9 @@ public class ManageViewModel extends ViewModel {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
-                List<Contact> contacts = new ArrayList<>();
+                List<ContactModal> contacts = new ArrayList<>();
                 for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                    Contact contact = snapshot.getValue(Contact.class);
+                    ContactModal contact = snapshot.getValue(ContactModal.class);
                     if (contact != null) {
                         contacts.add(contact);
                     }
@@ -41,8 +43,8 @@ public class ManageViewModel extends ViewModel {
 
     public void setListData(boolean isSort) {
         if (isSort) {
-            List<Contact> contacts = new ArrayList<>(currentContacts);
-            contacts.sort(Comparator.comparing(Contact::getName, String.CASE_INSENSITIVE_ORDER));
+            List<ContactModal> contacts = new ArrayList<>(currentContacts);
+            contacts.sort(Comparator.comparing(ContactModal::getName, String.CASE_INSENSITIVE_ORDER));
             _listData.setValue(contacts);
         } else {
             _listData.setValue(currentContacts);

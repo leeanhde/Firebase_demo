@@ -3,19 +3,14 @@ package com.example.firebasedemo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
-
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
-
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,12 +28,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     FirebaseRecyclerOptions<MainModel> options =
             new FirebaseRecyclerOptions.Builder<MainModel>()
-                    .setQuery(FirebaseDatabase.getInstance().getReference().child("students"),MainModel.class)
+                    .setQuery(FirebaseDatabase.getInstance().getReference().child("search"),MainModel.class)
                     .build();
 
     mainAdapter = new MainAdapter(options);
@@ -57,38 +56,40 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter.stopListening();
     }
 
-    @Override
+@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search,menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView)item.getActionView();
+    getMenuInflater().inflate(R.menu.menu_item, menu);
+    MenuItem item = menu.findItem(R.id.searchId);
+    SearchView searchView = (SearchView) item.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                txtSearch(query);
-                return false;
-            }
+    assert searchView != null;
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String newText) {
+            mysearch(newText);
+            return false;
+        }
 
-            @Override
-            public boolean onQueryTextChange(String query) {
-                txtSearch(query);
-                return false;
-            }
-        });
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            mysearch(newText);
+            return false;
+        }
+    });
+    return super.onCreateOptionsMenu(menu);
+}
 
-        return super.onCreateOptionsMenu(menu);
-    }
+    private void mysearch (String newText) {
 
-    private void txtSearch(String str)
-    {
-        FirebaseRecyclerOptions<MainModel> options =
+    FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("students").orderByChild("email").startAt(str).endAt(str+"~"),MainModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("search").orderByChild("email").startAt(newText).endAt(newText + "\uf8ff"),MainModel.class)
                         .build();
 
-        mainAdapter = new MainAdapter(options);
-        mainAdapter.startListening();
-        recyclerView.setAdapter(mainAdapter);
+    mainAdapter = new MainAdapter(options);
+    mainAdapter.startListening();
+    recyclerView.setAdapter(mainAdapter);
     }
+
+
 }

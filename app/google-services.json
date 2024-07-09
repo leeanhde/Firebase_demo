@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "556271765032",
-    "firebase_url": "https://fir-test-df062-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "fir-test-df062",
-    "storage_bucket": "fir-test-df062.appspot.com"
+    "project_number": "681702236628",
+    "firebase_url": "https://demofirebase-865ce-default-rtdb.firebaseio.com",
+    "project_id": "demofirebase-865ce",
+    "storage_bucket": "demofirebase-865ce.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:556271765032:android:b04f9ea971651e62d0971d",
+        "mobilesdk_app_id": "1:681702236628:android:c30a1b20eaaadad89fb641",
         "android_client_info": {
           "package_name": "com.example.firebasedemo"
         }
@@ -16,56 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA3J_i4L6QghCMwYZFmpgmHRyNNO_UcrFw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:556271765032:android:e6c250500b0ef55ad0971d",
-        "android_client_info": {
-          "package_name": "com.example.food_delivery_service"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA3J_i4L6QghCMwYZFmpgmHRyNNO_UcrFw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
-}
-{
-  "project_info": {
-    "project_number": "580365972238",
-    "firebase_url": "https://fir-4c3c8-default-rtdb.firebaseio.com",
-    "project_id": "fir-4c3c8",
-    "storage_bucket": "fir-4c3c8.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:580365972238:android:8d25e44b5e2b46c56e1d5f",
-        "android_client_info": {
-          "package_name": "Firebase.Demo"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDx8jSVcTQB2g9hisprlw0H5AKaJXyLrsA"
+          "current_key": "AIzaSyAvU4zn7wQVRMrsr2pu4SjEpNJn_cBRDXw"
         }
       ],
       "services": {

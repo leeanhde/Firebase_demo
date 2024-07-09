@@ -4,55 +4,104 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/textViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID"
+        android:textSize="20dp" />
+
     <EditText
         android:id="@+id/editTextId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textViewId"
         android:hint="ID"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextId"
+        android:layout_marginTop="8dp"
+        android:text="Name"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextId"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/textViewName"
         android:hint="Name"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="8dp"
+        android:text="Email"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextName"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/textViewEmail"
         android:hint="Email"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewCompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="8dp"
+        android:text="Company"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editTextCompany"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/textViewCompany"
         android:hint="Company"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextCompany"
+        android:layout_marginTop="8dp"
+        android:text="Address"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editTextAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCompany"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/textViewAddress"
         android:hint="Address"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextAddress"
+        android:layout_marginTop="8dp"
+        android:text="Image"
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/editTextAddress"
+        android:layout_below="@id/textViewImage"
         android:layout_marginTop="16dp"/>
 
     <Button
@@ -72,4 +121,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="Save Data" />
+
 </RelativeLayout>

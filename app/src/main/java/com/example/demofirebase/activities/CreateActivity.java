@@ -15,8 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.demofirebase.R;
 import com.example.demofirebase.modals.ContactModal;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Pattern;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -59,7 +64,6 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveUserData();
             }
-
         });
     }
 
@@ -75,27 +79,54 @@ public class CreateActivity extends AppCompatActivity {
             return;
         }
 
-        // Create a user object
-        ContactModal user = new ContactModal(id, name, email, company, address, photoUri);
+        // Validate name (no special characters)
+        if (!Pattern.matches("^[a-zA-Z0-9 ]+$", name)) {
+            Toast.makeText(this, "Name should not contain special characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // Push user object to Firebase
-        databaseReference.child(id).setValue(user)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(CreateActivity.this, "User data saved successfully", Toast.LENGTH_SHORT).show();
-                        // Clear EditText fields after successful save
-                        editTextId.setText("");
-                        editTextName.setText("");
-                        editTextEmail.setText("");
-                        editTextCompany.setText("");
-                        editTextAddress.setText("");
-                        imageView2.setImageResource(0); // Clear image view
-                        photoUri = null; // Clear photo URI
-                        startActivity(new Intent(CreateActivity.this, ManageActivity.class));
-                    } else {
-                        Toast.makeText(CreateActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // Validate email format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check if ID already exists
+        databaseReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Toast.makeText(CreateActivity.this, "ID already exists. Please use a different ID.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Create a user object
+                    ContactModal user = new ContactModal(id, name, email, company, address, photoUri);
+
+                    // Push user object to Firebase
+                    databaseReference.child(id).setValue(user)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(CreateActivity.this, "User data saved successfully", Toast.LENGTH_SHORT).show();
+                                    // Clear EditText fields after successful save
+                                    editTextId.setText("");
+                                    editTextName.setText("");
+                                    editTextEmail.setText("");
+                                    editTextCompany.setText("");
+                                    editTextAddress.setText("");
+                                    imageView2.setImageResource(0); // Clear image view
+                                    photoUri = null; // Clear photo URI
+                                    startActivity(new Intent(CreateActivity.this, ManageActivity.class));
+                                } else {
+                                    Toast.makeText(CreateActivity.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(CreateActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -25,21 +25,21 @@
             android:id="@+id/nameId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/imgId"
-            android:text="Student Name"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/imgId"
+            android:text="@string/member_name"
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/CourseName"
+            android:id="@+id/Address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameId"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/imgId"
-            android:text="Course Name"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/imgId"
+            android:text="@string/address"
             android:textColor="@color/black"
             android:textSize="22sp" />
 
@@ -47,10 +47,10 @@
             android:id="@+id/emailId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/CourseName"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/imgId"
-            android:text="Email"
+            android:layout_below="@+id/Address"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/imgId"
+            android:text="@string/email"
             android:textColor="@color/black"
             android:textSize="22sp" />
 

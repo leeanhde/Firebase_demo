@@ -19,6 +19,7 @@ public class MainModel {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
@@ -28,7 +29,7 @@ public class MainModel {
     }
 
     public void setAddress(String address) {
-        this.address = this.address;
+        this.address = address;
     }
 
     public String getEmail() {

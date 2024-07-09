@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     recyclerView.setAdapter(mainAdapter);
 }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             mysearch(newText);
             return false;
         }
+
     });
     return super.onCreateOptionsMenu(menu);
 }
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("search").orderByChild("email").startAt(newText).endAt(newText + "\uf8ff"),MainModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("search").orderByChild("address").startAt(newText).endAt(newText + "\uf8ff"),MainModel.class)
                         .build();
 
     mainAdapter = new MainAdapter(options);

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.myViewHolder> {
@@ -52,7 +51,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
 
             imageView = itemView.findViewById(R.id.imgId);
             name = itemView.findViewById(R.id.nameId);
-            address = itemView.findViewById(R.id.CourseName);
+            address = itemView.findViewById(R.id.Address);
             email = itemView.findViewById(R.id.emailId);
         }
     }

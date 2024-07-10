@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class UpdateActivity extends AppCompatActivity {
 
     static final String SELECTED_CONTACT = "SELECTED_CONTACT";
@@ -106,6 +108,16 @@ public class UpdateActivity extends AppCompatActivity {
 
         if (id.isEmpty() || name.isEmpty() || email.isEmpty() || company.isEmpty() || address.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Pattern.matches("^[a-zA-Z0-9 ]+$", name)) {
+            Toast.makeText(this, "Name should not contain special characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
             return;
         }
 

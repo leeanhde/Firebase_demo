@@ -148,7 +148,7 @@
             android:id="@+id/updateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="Save" />
 
@@ -156,8 +156,7 @@
             android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="Delete" />
     </LinearLayout>

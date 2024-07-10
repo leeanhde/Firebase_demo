@@ -17,8 +17,10 @@ import com.example.demofirebase.R;
 import com.example.demofirebase.modals.ContactModal;
 import com.example.demofirebase.utils.Const;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class UpdateActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private static final int PICK_IMAGE_REQUEST = 2;
     private String photoUri;
+    private String originalEmail;
 
 
     @Override
@@ -50,13 +53,10 @@ public class UpdateActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
-
-        //todo => update data from bundle selected contact
         ContactModal selectedContact = getIntent().getParcelableExtra(Const.SELECTED_CONTACT);
         if (selectedContact != null) {
+            originalEmail = selectedContact.getEmail();
             fillContact(selectedContact);
-        } else {
-            fetchUserData("test");
         }
 
         loadImageButton.setOnClickListener(v -> {
@@ -67,7 +67,6 @@ public class UpdateActivity extends AppCompatActivity {
 
         updateButton.setOnClickListener(v -> showUpdateConfirmationDialog());
 
-        //onCLick delete button
         deleteButton.setOnClickListener(v -> deleteUserData());
 
         ImageView ivBackUpdate = findViewById(R.id.ivBack);
@@ -82,6 +81,7 @@ public class UpdateActivity extends AppCompatActivity {
         editTextAddress.setText(contact.getAddress());
         if (contact.getPhotoUri() != null && !contact.getPhotoUri().isEmpty()) {
             Glide.with(UpdateActivity.this).load(Uri.parse(contact.getPhotoUri())).into(imageView);
+            photoUri = contact.getPhotoUri();
         }
     }
 
@@ -96,30 +96,6 @@ public class UpdateActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchUserData(String userId) {
-        databaseReference.child(userId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DataSnapshot dataSnapshot = task.getResult();
-                if (dataSnapshot.exists()) {
-                    ContactModal user = dataSnapshot.getValue(ContactModal.class);
-                    if (user != null) {
-                        editTextId.setText(user.getId());
-                        editTextName.setText(user.getName());
-                        editTextEmail.setText(user.getEmail());
-                        editTextCompany.setText(user.getCompany());
-                        editTextAddress.setText(user.getAddress());
-                        if (user.getPhotoUri() != null && !user.getPhotoUri().isEmpty()) {
-                            Glide.with(UpdateActivity.this).load(Uri.parse(user.getPhotoUri())).into(imageView);
-                        }
-                    }
-                } else {
-                    Toast.makeText(UpdateActivity.this, "User not found", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(UpdateActivity.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void updateUserData() {
         String id = editTextId.getText().toString().trim();
@@ -133,19 +109,31 @@ public class UpdateActivity extends AppCompatActivity {
             return;
         }
 
-        if (photoUri == null || photoUri.isEmpty()) {
-            databaseReference.child(id).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DataSnapshot dataSnapshot = task.getResult();
+        // Check if the email has been changed
+        if (!email.equals(originalEmail)) {
+            databaseReference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        ContactModal existingUser = dataSnapshot.getValue(ContactModal.class);
-                        if (existingUser != null && existingUser.getPhotoUri() != null && !existingUser.getPhotoUri().isEmpty()) {
-                            photoUri = existingUser.getPhotoUri();
-                            updateContact(id, name, email, company, address, photoUri);
+                        boolean isCurrentUsersEmail = false;
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            ContactModal contact = childSnapshot.getValue(ContactModal.class);
+                            if (contact != null && contact.getId().equals(id)) {
+                                isCurrentUsersEmail = true;
+                                break;
+                            }
+                        }
+                        if (!isCurrentUsersEmail) {
+                            Toast.makeText(UpdateActivity.this, "Email already exists. Please use a different email.", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
-                } else {
-                    Toast.makeText(UpdateActivity.this, "Failed to fetch existing user data", Toast.LENGTH_SHORT).show();
+                    updateContact(id, name, email, company, address, photoUri);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(UpdateActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -159,10 +147,9 @@ public class UpdateActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(UpdateActivity.this, "User data updated successfully", Toast.LENGTH_SHORT).show();
-                        // Redirect to ManageActivity
                         Intent intent = new Intent(UpdateActivity.this, ManageActivity.class);
                         startActivity(intent);
-                        finish(); // Close the current activity
+                        finish();
                     } else {
                         Toast.makeText(UpdateActivity.this, "Failed to update user data", Toast.LENGTH_SHORT).show();
                     }

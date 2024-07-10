@@ -43,7 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitleId"
-        android:hint="Enter ID" />
+        android:hint="Enter ID"
+        android:enabled="false" />
 
     <!-- Name -->
     <TextView

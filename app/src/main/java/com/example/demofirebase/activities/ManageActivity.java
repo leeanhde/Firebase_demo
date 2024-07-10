@@ -59,7 +59,11 @@ public class ManageActivity extends AppCompatActivity implements ContactAdapter.
     }
 
     private void initListeners() {
-        grBack.setOnClickListener(v -> finish());
+        grBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ManageActivity.this, DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
 
         RadioGroup rgFilter = findViewById(R.id.rgFilter);
         rgFilter.setOnCheckedChangeListener((radioGroup, checkedId) -> {

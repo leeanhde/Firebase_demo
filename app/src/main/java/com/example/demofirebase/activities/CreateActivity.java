@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -36,6 +37,19 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        // Tìm ImageView và TextView
+        ImageView ivBack = findViewById(R.id.ivBack);
+        TextView tvBack = findViewById(R.id.tvBack);
+
+        // Thiết lập sự kiện nhấn cho ImageView
+        View.OnClickListener backClickListener = v -> {
+            Intent intent = new Intent(CreateActivity.this, DashboardActivity.class);
+            startActivity(intent);
+        };
+
+        ivBack.setOnClickListener(backClickListener);
+        tvBack.setOnClickListener(backClickListener);
 
         editTextId = findViewById(R.id.editTextId);
         editTextName = findViewById(R.id.editTextName);
